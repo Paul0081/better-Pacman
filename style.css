@@ -32,9 +32,8 @@ footer {
 #hideCanvas {
     display: none;
 }
-#canvasMap {
-    width: 70vw;
-    height: 85vh;
+canvas {
     background-color: black;
     border: 10px solid grey;
+    border-radius: 13px;
 }
