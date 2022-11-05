@@ -1,59 +1,40 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
 }
-body
-{
-    background-image: url(tło.png);
-}
-header
-{
+header {
     text-align: center;
-    font-size: 200%;
-}
-.bruh
-{
+    font-size: 150%;
     background-color: aqua;
+    height: 7vh;
 }
-main
-{
+main {
+    background-image: url(tło.png);
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer {
     text-align: center;
-    margin: auto;
-
+    background-color: aqua;
+    height: 3vh;
 }
-#start
-{
-    display: block;
-    width: 400px;
-    text-align: center;
-    margin:auto;
-    height: 300px;
-    background-color: yellowgreen;
-    font-size: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
+#btnStart {
+    background-color: lightgreen;
+    border: 5px green dotted;
+    font-size: 190%;
+    font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
 }
-.GameField
-{
-    width: 1700px;
-    height: 900px;
+#hideCanvas {
+    display: none;
+}
+#canvasMap {
+    width: 70vw;
+    height: 85vh;
     background-color: black;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
     border: 10px solid grey;
-}
-.mapa
-{
-
-}
-.postac
-{
-
 }
