@@ -2,8 +2,48 @@ function hide_showElm(){
     document.getElementById("btnStart").style.display = "none";
     document.getElementById("hideCanvas").style.display = "inline-block";
 }
+
 const canvas = document.getElementById("canvasMap");
 const ctx = canvas.getContext("2d");
+
+const buffer = document.createElement("canvas").getContext("2d");
+const context = document.querySelector("canvas").getContext("2d");
+
+const map = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+];
+
+const size = 60;
+
+buffer.canvas.width = 20 * size;
+buffer.canvas.height = 14 * size;
+
+const drawMap = function() {
+
+    for (let index = 0; index < map.length; index ++) {
+
+        buffer.fillStyle = (map[index] === 1)?"#0000ff":"#ffffff";
+        buffer.fillRect((index % 20) * size, Math.floor(index/20) * size, size, size);
+
+    }
+    context.drawImage(buffer.canvas, 0, 0, buffer.canvas.width, buffer.canvas.height, 0, 0, context.canvas.width, context.canvas.height);
+};
+drawMap();
+
+
+
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
