@@ -10,19 +10,19 @@ const buffer = document.createElement("canvas").getContext("2d");
 const context = document.querySelector("canvas").getContext("2d");
 
 const map = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 ];
 
 const size = 60;
@@ -30,7 +30,7 @@ const size = 60;
 buffer.canvas.width = 20 * size;
 buffer.canvas.height = 14 * size;
 
-const drawMap = function() {
+function drawMap() {
 
     for (let index = 0; index < map.length; index ++) {
 
@@ -39,7 +39,7 @@ const drawMap = function() {
 
     }
     context.drawImage(buffer.canvas, 0, 0, buffer.canvas.width, buffer.canvas.height, 0, 0, context.canvas.width, context.canvas.height);
-};
+}
 drawMap();
 
 
@@ -79,7 +79,8 @@ function keyUpHandler(e) {
 }
 
 function drawPacmanRight() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
     ctx.beginPath();
     ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(pacmanX-5, pacmanY);
@@ -88,7 +89,8 @@ function drawPacmanRight() {
     ctx.closePath();
 }
 function drawPacmanLeft() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
     ctx.beginPath();
     ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(pacmanX-5, pacmanY);
@@ -97,7 +99,8 @@ function drawPacmanLeft() {
     ctx.closePath();
 }
 function drawPacmanUp() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
     ctx.beginPath();
     ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(pacmanX-5, pacmanY);
@@ -106,7 +109,8 @@ function drawPacmanUp() {
     ctx.closePath();
 }
 function drawPacmanDown() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMap();
     ctx.beginPath();
     ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(pacmanX-5, pacmanY);
