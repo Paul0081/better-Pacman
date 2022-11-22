@@ -28,14 +28,16 @@ var gameMap = [
 ];
 var tileW = 40, tileH = 40;
 var mapW = 28, mapH = 15;
-var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 
-var keysDown = {
-    37 : false,
-    38 : false,
-    39 : false,
-    40 : false
-};
+//var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
+
+
+
+let rightPressed = false;
+let leftPressed = false;
+let upPressed = false;
+let downPressed = false;
+
 
 var player = new Character();
 
@@ -94,39 +96,52 @@ function toIndex(x, y)
 window.onload = function()
 {
     ctx = document.getElementById('canvasMap').getContext("2d");
-    requestAnimationFrame(drawGame);
-    ctx.font = "bold 10pt sans-serif";
 
-    window.addEventListener("keydown", function(e) {
-        if(e.keyCode>=37 && e.keyCode<=40) { keysDown[e.keyCode] = true; }
-    });
-    window.addEventListener("keyup", function(e) {
-        if(e.keyCode>=37 && e.keyCode<=40) { keysDown[e.keyCode] = false; }
-    });
+    setInterval(draw, 10);
+
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+
+    function keyDownHandler(e) {
+        if (e.key === "Right" || e.key === "ArrowRight") {
+            rightPressed = true;
+        } else if (e.key === "Left" || e.key === "ArrowLeft") {
+            leftPressed = true;
+        } else if (e.key === "Up" || e.key === "ArrowUp") {
+            upPressed = true;
+        } else if (e.key === "Down" || e.key === "ArrowDown") {
+            downPressed = true;
+        }
+    }
+    function keyUpHandler(e) {
+        if (e.key === "Right" || e.key === "ArrowRight") {
+            rightPressed = false;
+        } else if (e.key === "Left" || e.key === "ArrowLeft") {
+            leftPressed = false;
+        } else if (e.key === "Up" || e.key === "ArrowUp") {
+            upPressed = false;
+        } else if (e.key === "Down" || e.key === "ArrowDown") {
+            downPressed = false;
+        }
+    }
+
+
 };
 
-function drawGame()
+function draw()
 {
     if(ctx==null) { return; }
 
     var currentFrameTime = Date.now();
-    var timeElapsed = currentFrameTime - lastFrameTime;
 
-    var sec = Math.floor(Date.now()/1000);
-    if(sec!=currentSecond)
-    {
-        currentSecond = sec;
-        framesLastSecond = frameCount;
-        frameCount = 1;
-    }
-    else { frameCount++; }
 
     if(!player.processMovement(currentFrameTime))
     {
-        if(keysDown[38] && player.tileFrom[1]>0 && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]-1)]==1) { player.tileTo[1]-= 1; }
-        else if(keysDown[40] && player.tileFrom[1]<(mapH-1) && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]+1)]==1) { player.tileTo[1]+= 1; }
-        else if(keysDown[37] && player.tileFrom[0]>0 && gameMap[toIndex(player.tileFrom[0]-1, player.tileFrom[1])]==1) { player.tileTo[0]-= 1; }
-        else if(keysDown[39] && player.tileFrom[0]<(mapW-1) && gameMap[toIndex(player.tileFrom[0]+1, player.tileFrom[1])]==1) { player.tileTo[0]+= 1; }
+        if(upPressed === true && player.tileFrom[1]>0 && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]-1)]==1) { player.tileTo[1]-= 1; }
+        else if(downPressed === true && player.tileFrom[1]<(mapH-1) && gameMap[toIndex(player.tileFrom[0], player.tileFrom[1]+1)]==1) { player.tileTo[1]+= 1; }
+        else if(leftPressed === true && player.tileFrom[0]>0 && gameMap[toIndex(player.tileFrom[0]-1, player.tileFrom[1])]==1) { player.tileTo[0]-= 1; }
+        else if(rightPressed === true && player.tileFrom[0]<(mapW-1) && gameMap[toIndex(player.tileFrom[0]+1, player.tileFrom[1])]==1) { player.tileTo[0]+= 1; }
 
         if(player.tileFrom[0]!=player.tileTo[0] || player.tileFrom[1]!=player.tileTo[1])
         { player.timeMoved = currentFrameTime; }
@@ -149,16 +164,10 @@ function drawGame()
         }
     }
 
-    3
     ctx.fillStyle = "#ff00ff";
     ctx.fillRect(player.position[0], player.position[1],
         player.dimensions[0], player.dimensions[1]);
 
-    ctx.fillStyle = "#ff0000";
-    ctx.fillText("FPS: " + framesLastSecond, 10, 20);
-
-    lastFrameTime = currentFrameTime;
-    requestAnimationFrame(drawGame);
 }
 
 
@@ -194,75 +203,11 @@ function drawGame()
 /*const canvas = document.getElementById("canvasMap");
 const ctx = canvas.getContext("2d");
 
-const buffer = document.createElement("canvas").getContext("2d");
-const context = document.querySelector("canvas").getContext("2d");
 
-const map = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-];
-
-const size = 60;
-
-buffer.canvas.width = 20 * size;
-buffer.canvas.height = 14 * size;
-
-function drawMap() {
-
-    for (let index = 0; index < map.length; index ++) {
-
-        buffer.fillStyle = (map[index] === 1)?"#0000ff":"#ffffff";
-        buffer.fillRect((index % 20) * size, Math.floor(index/20) * size, size, size);
-
-    }
-    context.drawImage(buffer.canvas, 0, 0, buffer.canvas.width, buffer.canvas.height, 0, 0, context.canvas.width, context.canvas.height);
-}
-drawMap();
-
-
-
-let rightPressed = false;
-let leftPressed = false;
-let upPressed = false;
-let downPressed = false;
 let pacmanX = 200;
 let pacmanY = 100;
 let pacmanRadius = 20;
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-
-function keyDownHandler(e) {
-    if (e.key === "Right" || e.key === "ArrowRight") {
-        rightPressed = true;
-    } else if (e.key === "Left" || e.key === "ArrowLeft") {
-        leftPressed = true;
-    } else if (e.key === "Up" || e.key === "ArrowUp") {
-        upPressed = true;
-    } else if (e.key === "Down" || e.key === "ArrowDown") {
-        downPressed = true;
-    }
-}
-function keyUpHandler(e) {
-    if (e.key === "Right" || e.key === "ArrowRight") {
-        rightPressed = false;
-    } else if (e.key === "Left" || e.key === "ArrowLeft") {
-        leftPressed = false;
-    } else if (e.key === "Up" || e.key === "ArrowUp") {
-        upPressed = false;
-    } else if (e.key === "Down" || e.key === "ArrowDown") {
-        downPressed = false;
-    }
-}
 
 function drawPacmanRight() {
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -337,4 +282,4 @@ function draw() {
         }
     }
 }
-setInterval(draw, 10);*/
+*/
