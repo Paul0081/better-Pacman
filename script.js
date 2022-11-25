@@ -46,8 +46,8 @@ function Character()
     this.tileFrom	= [1,1];
     this.tileTo		= [1,1];
     this.timeMoved	= 0;
-    this.dimensions	= [30,30];
-    this.position	= [45,45];
+    this.dimensions	= [0,0];
+    this.position	= [60,60];
     this.delayMove	= 200;
 }
 Character.prototype.placeAt = function(x, y)
@@ -154,132 +154,21 @@ function draw()
             switch(gameMap[((y*mapW)+x)])
             {
                 case 0:
-                    ctx.fillStyle = "#685b48";
+                    ctx.fillStyle = "#0031FF";
                     break;
                 default:
-                    ctx.fillStyle = "#5aa457";
+                    ctx.fillStyle = "#0D1940";
             }
 
             ctx.fillRect( x*tileW, y*tileH, tileW, tileH);
         }
     }
 
-    ctx.fillStyle = "#ff00ff";
-    ctx.fillRect(player.position[0], player.position[1],
-        player.dimensions[0], player.dimensions[1]);
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*const canvas = document.getElementById("canvasMap");
-const ctx = canvas.getContext("2d");
-
-
-let pacmanX = 200;
-let pacmanY = 100;
-let pacmanRadius = 20;
-
-
-function drawPacmanRight() {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMap();
     ctx.beginPath();
-    ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
-    ctx.lineTo(pacmanX-5, pacmanY);
+    ctx.arc(player.position[0], player.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
+    ctx.lineTo(player.position[0]-1, player.position[1]);
     ctx.fillStyle = "yellow";
     ctx.fill();
     ctx.closePath();
-}
-function drawPacmanLeft() {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMap();
-    ctx.beginPath();
-    ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
-    ctx.lineTo(pacmanX-5, pacmanY);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.closePath();
-}
-function drawPacmanUp() {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMap();
-    ctx.beginPath();
-    ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
-    ctx.lineTo(pacmanX-5, pacmanY);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.closePath();
-}
-function drawPacmanDown() {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMap();
-    ctx.beginPath();
-    ctx.arc(pacmanX, pacmanY, pacmanRadius, Math.PI / 7, -Math.PI / 7, false);
-    ctx.lineTo(pacmanX-5, pacmanY);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.closePath();
-}
 
-
-function draw() {
-    drawPacmanRight();
-    if(rightPressed) {
-        drawPacmanRight();
-        pacmanX += 5;
-        if (pacmanX + pacmanRadius > canvas.width){
-            pacmanX = canvas.width - pacmanRadius;
-        }
-    }
-    else if(leftPressed){
-        drawPacmanLeft();
-        pacmanX -= 5;
-        if (pacmanX < pacmanRadius){
-            pacmanX = pacmanRadius;
-        }
-    }
-    else if(upPressed){
-        drawPacmanUp();
-        pacmanY -= 5;
-        if (pacmanY < pacmanRadius){
-            pacmanY = pacmanRadius;
-        }
-    }
-    else if(downPressed) {
-        drawPacmanDown();
-        pacmanY += 5;
-        if (pacmanY + pacmanRadius > canvas.height) {
-            pacmanY = canvas.height - pacmanRadius;
-        }
-    }
 }
-*/
