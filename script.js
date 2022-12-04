@@ -55,25 +55,6 @@ Character.prototype.placeAt = function(x, y)
     this.position	= [((tileW*x)+((tileW-this.dimensions[0])/2)),
         ((tileH*y)+((tileH-this.dimensions[1])/2))];
 };
-var AI = new Ghost();
-
-function Ghost()
-{
-    this.tileFrom	= [1,1];
-    this.tileTo		= [1,1];
-    this.timeMoved	= 0;
-    this.dimensions	= [0,0];
-    this.position	= [800,350];
-    this.delayMove	= 200;
-}
-Ghost.prototype.placeAt = function(x, y)
-{
-    this.tileFrom	= [x,y];
-    this.tileTo		= [x,y];
-    this.position	= [((tileW*x)+((tileW-this.dimensions[0])/2)),
-        ((tileH*y)+((tileH-this.dimensions[1])/2))];
-};
-
 Character.prototype.processMovement = function(t)
 {
     if(this.tileFrom[0]==this.tileTo[0] && this.tileFrom[1]==this.tileTo[1]) { return false; }
@@ -104,8 +85,32 @@ Character.prototype.processMovement = function(t)
 
     return true;
 }
-Ghost.prototype.processMovement = function(t)
+
+class ghost
 {
+    tileFrom   = [];
+    tileTo		= [];
+    constructor(tileX, tileY) {
+        this.tileFrom[0] = tileX;
+        this.tileFrom[1] = tileY;
+        this.tileTo[0] = tileX;
+        this.tileTo[1] = tileY;
+        this.timeMoved	= 0;
+        this.dimensions	= [0,0];
+        this.position	= [60,60];
+        this.delayMove	= 200;
+    }
+    placeAt(x, y)
+        {
+            this.tileFrom	= [x,y];
+            this.tileTo		= [x,y];
+            this.position	= [((tileW*x)+((tileW-this.dimensions[0])/2)),
+                ((tileH*y)+((tileH-this.dimensions[1])/2))];
+        };
+
+
+    processmovement(t)
+        {
     if(this.tileFrom[0]==this.tileTo[0] && this.tileFrom[1]==this.tileTo[1]) { return false; }
 
     if((t-this.timeMoved)>=this.delayMove)
@@ -133,7 +138,17 @@ Ghost.prototype.processMovement = function(t)
     }
 
     return true;
-}
+        }
+
+
+};
+
+let improved = new ghost(14, 10);
+let AI = new ghost(14,10);
+let AIprawo = new ghost(27,1);
+let AIdolprawo = new ghost(27,13);
+let AIdollewo = new ghost(1,14);
+
 
 function toIndex(x, y)
 {
@@ -179,10 +194,12 @@ window.onload = function()
 function draw()
 {
     if(ctx==null) { return; }
-
     var currentFrameTime = Date.now();
+
+
+
     let brush = Math.floor((Math.random() * 4) + 1);
-    if(!AI.processMovement(currentFrameTime))
+    if(!AI.processmovement(currentFrameTime))
     {
         if(brush===1 && AI.tileFrom[1]>0 && gameMap[toIndex(AI.tileFrom[0], AI.tileFrom[1]-1)]==1) { AI.tileTo[1]-= 1; }
         else if(brush===2 && gameMap[toIndex(AI.tileFrom[0], AI.tileFrom[1]+1)]==1) { AI.tileTo[1]+= 1; }
@@ -192,6 +209,59 @@ function draw()
         if(AI.tileFrom[0]!=AI.tileTo[0] || AI.tileFrom[1]!=AI.tileTo[1])
         { AI.timeMoved = currentFrameTime; }
     }
+    let improvedBruh = Math.floor((Math.random() * 4) + 1);
+    if(!improved.processmovement(currentFrameTime))
+    {
+        if(improvedBruh===1 && improved.tileFrom[1]>0 && gameMap[toIndex(improved.tileFrom[0], improved.tileFrom[1]-1)]==1) { improved.tileTo[1]-= 1; }
+        else if(improvedBruh===2 && gameMap[toIndex(improved.tileFrom[0], improved.tileFrom[1]+1)]==1) { improved.tileTo[1]+= 1; }
+        else if(improvedBruh===3 && improved.tileFrom[0]>0 && gameMap[toIndex(improved.tileFrom[0]-1, improved.tileFrom[1])]==1) { improved.tileTo[0]-= 1; }
+        else if(improvedBruh===4 && improved.tileFrom[0]<(mapW-1) && gameMap[toIndex(improved.tileFrom[0]+1, improved.tileFrom[1])]==1) { improved.tileTo[0]+= 1; }
+
+        if(improved.tileFrom[0]!=improved.tileTo[0] || improved.tileFrom[1]!=improved.tileTo[1])
+        { improved.timeMoved = currentFrameTime; }
+    }
+
+    let brushdol = Math.floor((Math.random() * 4) + 1);
+    if(!AIdolprawo.processmovement(currentFrameTime))
+    {
+        if(brushdol===1 && AIdolprawo.tileFrom[1]>0 && gameMap[toIndex(AIdolprawo.tileFrom[0], AIdolprawo.tileFrom[1]-1)]==1) { AIdolprawo.tileTo[1]-= 1; }
+        else if(brushdol===2 && gameMap[toIndex(AIdolprawo.tileFrom[0], AIdolprawo.tileFrom[1]+1)]==1) { AIdolprawo.tileTo[1]+= 1; }
+        else if(brushdol===3 && AIdolprawo.tileFrom[0]>0 && gameMap[toIndex(AIdolprawo.tileFrom[0]-1, AIdolprawo.tileFrom[1])]==1) { AIdolprawo.tileTo[0]-= 1; }
+        else if(brushdol===4 && AIdolprawo.tileFrom[0]<(mapW-1) && gameMap[toIndex(AIdolprawo.tileFrom[0]+1, AIdolprawo.tileFrom[1])]==1) { AIdolprawo.tileTo[0]+= 1; }
+
+        if(AIdolprawo.tileFrom[0]!=AIdolprawo.tileTo[0] || AIdolprawo.tileFrom[1]!=AIdolprawo.tileTo[1])
+        { AIdolprawo.timeMoved = currentFrameTime; }
+    }
+
+
+    let brushdollewo = Math.floor((Math.random() * 4) + 1);
+    if(!AIdollewo.processmovement(currentFrameTime))
+    {
+        if(brushdollewo===1 && AIdollewo.tileFrom[1]>0 && gameMap[toIndex(AIdollewo.tileFrom[0], AIdollewo.tileFrom[1]-1)]==1) { AIdollewo.tileTo[1]-= 1; }
+        else if(brushdollewo===2 && gameMap[toIndex(AIdollewo.tileFrom[0], AIdollewo.tileFrom[1]+1)]==1) { AIdollewo.tileTo[1]+= 1; }
+        else if(brushdollewo===3 && AIdollewo.tileFrom[0]>0 && gameMap[toIndex(AIdollewo.tileFrom[0]-1, AIdollewo.tileFrom[1])]==1) { AIdollewo.tileTo[0]-= 1; }
+        else if(brushdollewo===4 && AIdollewo.tileFrom[0]<(mapW-1) && gameMap[toIndex(AIdollewo.tileFrom[0]+1, AIdollewo.tileFrom[1])]==1) { AIdollewo.tileTo[0]+= 1; }
+
+        if(AIdollewo.tileFrom[0]!=AIdollewo.tileTo[0] || AIdollewo.tileFrom[1]!=AIdollewo.tileTo[1])
+        { AIdollewo.timeMoved = currentFrameTime; }
+    }
+
+
+    let brushprawo = Math.floor((Math.random() * 4) + 1);
+    if(!AIprawo.processmovement(currentFrameTime))
+    {
+        if(brushprawo===1 && AIprawo.tileFrom[1]>0 && gameMap[toIndex(AIprawo.tileFrom[0], AIprawo.tileFrom[1]-1)]==1) { AIprawo.tileTo[1]-= 1; }
+        else if(brushprawo===2 && gameMap[toIndex(AIprawo.tileFrom[0], AIprawo.tileFrom[1]+1)]==1) { AIprawo.tileTo[1]+= 1; }
+        else if(brushprawo===3 && AIprawo.tileFrom[0]>0 && gameMap[toIndex(AIprawo.tileFrom[0]-1, AIprawo.tileFrom[1])]==1) { AIprawo.tileTo[0]-= 1; }
+        else if(brushprawo===4 && AIprawo.tileFrom[0]<(mapW-1) && gameMap[toIndex(AIprawo.tileFrom[0]+1, AIprawo.tileFrom[1])]==1) { AIprawo.tileTo[0]+= 1; }
+
+        if(AIprawo.tileFrom[0]!=AIprawo.tileTo[0] || AIprawo.tileFrom[1]!=AIprawo.tileTo[1])
+        { AIprawo.timeMoved = currentFrameTime; }
+    }
+
+
+
+
 
     if(!player.processMovement(currentFrameTime))
     {
@@ -233,6 +303,34 @@ function draw()
     ctx.arc(AI.position[0], AI.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(AI.position[0]-1, AI.position[1]);
     ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(AIprawo.position[0], AIprawo.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
+    ctx.lineTo(AIprawo.position[0]-1, AIprawo.position[1]);
+    ctx.fillStyle = "green";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(AIdolprawo.position[0], AIdolprawo.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
+    ctx.lineTo(AIdolprawo.position[0]-1, AIdolprawo.position[1]);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(AIdollewo.position[0], AIdollewo.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
+    ctx.lineTo(AIdollewo.position[0]-1, AIdollewo.position[1]);
+    ctx.fillStyle = "black";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.arc(improved.position[0], improved.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
+    ctx.lineTo(improved.position[0]-1, improved.position[1]);
+    ctx.fillStyle = "black";
     ctx.fill();
     ctx.closePath();
 }
