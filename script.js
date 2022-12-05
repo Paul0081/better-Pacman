@@ -1,8 +1,14 @@
+document.getElementById("btnGameOver").style.display = "none";
 function hide_showElm(){
+
     document.getElementById("btnStart").style.display = "none";
     document.getElementById("hideCanvas").style.display = "inline-block";
-}
 
+}
+function gameover()
+{
+    window.location.reload();
+}
 
 
 
@@ -195,8 +201,16 @@ function draw()
 {
     if(ctx==null) { return; }
     var currentFrameTime = Date.now();
+    a = player.tileTo[1];
+    b = AI.tileTo[1];
+    c = player.tileTo[0]
+    d = AI.tileTo[0]
+    if (a === b && c===d)
+    {
 
-
+        document.getElementById("btnGameOver").style.display = "inline-block";
+        document.getElementById("hideCanvas").style.display = "none";
+    }
 
     let brush = Math.floor((Math.random() * 4) + 1);
     if(!AI.processmovement(currentFrameTime))
@@ -330,10 +344,12 @@ function draw()
     ctx.beginPath();
     ctx.arc(improved.position[0], improved.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(improved.position[0]-1, improved.position[1]);
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "purple";
     ctx.fill();
     ctx.closePath();
 }
+
+
 
 
 /*

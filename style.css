@@ -21,7 +21,7 @@ footer {
     background-color: aqua;
     height: 3vh;
 }
-#btnStart {
+#btnStart, #btnGameOver {
     background-color: lightgreen;
     border: 5px green dotted;
     font-size: 190%;
