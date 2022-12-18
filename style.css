@@ -21,9 +21,18 @@ footer {
     background-color: aqua;
     height: 3vh;
 }
-#btnStart, #btnGameOver {
+#btnStart {
     background-color: lightgreen;
     border: 5px green dotted;
+    font-size: 190%;
+    font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
+}
+#btnGameOver {
+    display: none;
+    background-color: Crimson;
+    border: 5px black dotted;
     font-size: 190%;
     font-weight: bold;
     padding: 20px;
