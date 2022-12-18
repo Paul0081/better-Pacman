@@ -206,9 +206,10 @@ class punkty
         this.position[1] = (tileY*40)-20;
     }
 }
+//klasa duszków
 
 let punkt1 = new punkty(2,3)
-
+//stworzenie punktu
 
 function toIndex(x, y)
 {
@@ -245,7 +246,6 @@ function draw()
         { ghost1.timeMoved = currentFrameTime; }
     }
     //Ruch Duszków z uwzględnieniem kolizji oraz zmiennej Random
-
 
     let ghost2Random = Math.floor((Math.random() * 4) + 1);
     //Wylosowanie liczby od 1 do 4 i zapisanie w zmiennej Random
@@ -330,10 +330,13 @@ function draw()
         }
     }
     //Narysowanie Mapy
+
     if (X+1 === punkt1.tileTo[0] && Y+1 === punkt1.tileTo[1])
     {
         punkt1.position = [1000,1000]
     }
+    //likwidacja punktu po najechaniu pacmana
+
     ctx.beginPath();
     ctx.arc(player.position[0], player.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(player.position[0]-1, player.position[1]);
@@ -389,6 +392,5 @@ function draw()
     ctx.fill();
     ctx.closePath();
     //Rysowanie duszka
-
 }
 
