@@ -67,6 +67,7 @@ var gameMap = [
 ];
 var tileW = 40, tileH = 40;
 var mapW = 28, mapH = 15;
+
 //Mapa i szerokość + wysokość mapy
 
 var player = new Character();
@@ -190,8 +191,24 @@ let ghost2 = new ghost(14,10);
 let ghost3 = new ghost(27,1);
 let ghost4 = new ghost(27,13);
 let ghost5 = new ghost(1,14);
-//Stworzenie nowych duszków na pozycji TileX oraz TileY na mapie
-//Deklarujemy to jego pozycje startową na mapie przez koordynaty X oraz Y
+
+class punkty
+{
+    tileFrom   = [];
+    tileTo	= [];
+    position = [];
+    constructor(tileX, tileY) {
+        this.tileFrom[0] = tileX;
+        this.tileFrom[1] = tileY;
+        this.tileTo[0] = tileX;
+        this.tileTo[1] = tileY;
+        this.position[0] = (tileX*40)-20;
+        this.position[1] = (tileY*40)-20;
+    }
+}
+
+let punkt1 = new punkty(2,3)
+
 
 function toIndex(x, y)
 {
@@ -228,6 +245,7 @@ function draw()
         { ghost1.timeMoved = currentFrameTime; }
     }
     //Ruch Duszków z uwzględnieniem kolizji oraz zmiennej Random
+
 
     let ghost2Random = Math.floor((Math.random() * 4) + 1);
     //Wylosowanie liczby od 1 do 4 i zapisanie w zmiennej Random
@@ -294,7 +312,6 @@ function draw()
     }
     //Ruch Pacmana z uwzględnieniem przycisnięcia klawiszy na klawiaturze
 
-
     for(var y = 0; y < mapH; ++y)
     {
         for(var x = 0; x < mapW; ++x)
@@ -306,13 +323,17 @@ function draw()
                     break;
                 default:
                     ctx.fillStyle = "#0D1940";
+                    break;
             }
 
             ctx.fillRect( x*tileW, y*tileH, tileW, tileH);
         }
     }
     //Narysowanie Mapy
-
+    if (X+1 === punkt1.tileTo[0] && Y+1 === punkt1.tileTo[1])
+    {
+        punkt1.position = [1000,1000]
+    }
     ctx.beginPath();
     ctx.arc(player.position[0], player.position[1], 16, Math.PI / 7, -Math.PI / 7, false);
     ctx.lineTo(player.position[0]-1, player.position[1]);
@@ -360,4 +381,14 @@ function draw()
     ctx.fill();
     ctx.closePath();
     //Rysowanie duszka
+
+    ctx.beginPath();
+    ctx.arc(punkt1.position[0], punkt1.position[1], 6, Math.PI, -Math.PI, false);
+    ctx.lineTo(punkt1.position[0] - 1, punkt1.position[1]);
+    ctx.fillStyle = "yellow";
+    ctx.fill();
+    ctx.closePath();
+    //Rysowanie duszka
+
 }
+
